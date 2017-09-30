@@ -58,12 +58,20 @@ const getFileList = (relativePath) => {
   return filelist;
 };
 
-const sortFileList = (filelist, sortString = '') => {
+const sortFileList = (filelist, sortQuery) => {
   const sort = {
     // default: sort name by asc
     column: 'N',
     order: 'A',
   };
+
+  const { C, O } = sortQuery;
+
+
+  if (sortq) {
+    expression
+  }
+
 
   const match = sortString.match(/\S=\S/g);
   if (match) {
@@ -78,8 +86,6 @@ const sortFileList = (filelist, sortString = '') => {
       }
     });
   }
-
-  console.log('sort: ', sort);
 
   const sorted = filelist.sort((a, b) => {
     // first list all of the directory
@@ -104,42 +110,37 @@ const sortFileList = (filelist, sortString = '') => {
     return 0;
   });
 
+  // build sort data
+  const sortdata = {};
+  sortdata[FANCY_INDEX_SORT.COLUMN_FILE_NAME] = FANCY_INDEX_SORT.ORDER_ASC;
+  sortdata[FANCY_INDEX_SORT.COLUMN_FILE_SIZE] = FANCY_INDEX_SORT.ORDER_ASC;
+  sortdata[FANCY_INDEX_SORT.COLUMN_MODIFY_DATE] = FANCY_INDEX_SORT.ORDER_ASC;
+  sortdata[sort.column] = (sort.order === FANCY_INDEX_SORT.ORDER_ASC) ? FANCY_INDEX_SORT.ORDER_DESC : FANCY_INDEX_SORT.ORDER_ASC;
+
+  console.log('sortdata', sortdata);
+
   return {
-    sort,
+    sortdata,
     filelist: sorted,
   };
 };
 
 const app = new Koa();
 app.use(async (ctx, next) => {
-  const pth = ctx.path;
+  const { path:pth, query } = ctx;
   const filelist = getFileList(pth);
+
+  // console.log('query', ctx.query);
 
   if (filelist === null) {
     // path not found
     return next();
   }
 
-  const sorted = sortFileList(filelist);
+  const sorted = sortFileList(filelist, query);
 
   // console.log('filelist', filelist);
   const content = compileIndex(sorted);
   ctx.body = content;
 });
 app.listen(8181);
-
-// http.createServer(function (req, res) {
-//   console.log(req.url);
-//   res.writeHead(200, {'Content-Type': 'text/html'});
-//   const content = compileIndex({});
-//   res.write(content);
-//   res.end();
-// }).listen(8181);
-
-
-// http.createServer(
-//   middleware([
-//     favicon,
-//     index,
-//     notfound,
-//   ])).listen(8181);
