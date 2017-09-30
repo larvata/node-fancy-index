@@ -1,0 +1,38 @@
+doctype strict
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(name='viewport', content='width=device-width')
+    meta(http-equiv='content-type', content='text/html; charset=utf-8')
+    style(type='text/css').
+      body,html {background:#fff;font-family:"Bitstream Vera Sans","Lucida Grande","Lucida Sans Unicode",Lucidux,Verdana,Lucida,sans-serif;}tr:nth-child(even) {background:#f4f4f4;}th,td {padding:0.1em 0.5em;}th {text-align:left;font-weight:bold;background:#eee;border-bottom:1px solid #aaa;}#list {border:1px solid #aaa;width:100%;}a {color:#a33;}a:hover {color:#e33;}
+    title Index of /html/
+  body
+    h1 Index of /html/
+    table#list(cellpadding='0.1em', cellspacing='0')
+      colgroup
+        col(width='55%')
+        col(width='20%')
+        col(width='25%')
+      thead
+        tr
+          th
+            a(href='?C=N&O=A') File Name
+            a(href='?C=N&O=D')  ↓ 
+          th
+            a(href='?C=S&O=A') File Size
+            a(href='?C=S&O=D')  ↓ 
+          th
+            a(href='?C=M&O=A') Date
+            a(href='?C=M&O=D')  ↓ 
+      tbody
+        tr
+          td
+            a(href='../?C=N&O=D') Parent directory/
+          td -
+          td -
+        each file in filelist
+          tr
+            td
+              a(href=file.name, title=file.name) #{file.isDirectory ? file.name + '/' : file.name}
+            td #{file.isDirectory ? '-' : file.size}
+            td #{file.mtime}
