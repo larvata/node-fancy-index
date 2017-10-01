@@ -1,10 +1,17 @@
 {
   "name": "node-fancy-index",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
+  "bin": {
+    "fancy-index": "index.js"
+  },
+  "files": [
+    "views/"
+  ],
   "license": "MIT",
   "dependencies": {
     "koa": "^2.3.0",
+    "koa-send": "^4.1.1",
     "pug": "^2.0.0-rc.4",
     "yargs": "^9.0.1"
   },
