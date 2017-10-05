@@ -10,7 +10,7 @@ const createServeIndexMiddleware = (basePath, configs) => {
   return (ctx, next) => {
     const { path: pth, query } = ctx;
 
-    const fullpath = path.join(basePath, decodeURI(pth));
+    const fullpath = path.join(basePath, decodeURIComponent(pth));
 
     const exists = fs.existsSync(fullpath);
     if (!exists) {

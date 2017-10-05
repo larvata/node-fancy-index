@@ -96,7 +96,7 @@ const serveIndex = (options, ctx, next) => {
 
     const result = {
       name: d,
-      path: path.join(pth, d),
+      path: path.join(pth, encodeURIComponent(d)),
       // displayName: d,
       size,
       // displaySize: size,
