@@ -4,6 +4,9 @@ const path = require('path');
 
 const { argv } = require('yargs');
 const Koa = require('koa');
+
+const pkg = require('./package');
+
 const createServeIndexMiddleware = require('./middlewares/serve');
 const { BASE_CONFIGURATIONS, BASE_CONFIGURATIONS_PATH } = require('./lib/common');
 const { loadFileContent } = require('./lib/utils');
@@ -14,6 +17,9 @@ if (argv.defaultConfig) {
   process.exit();
 }
 
+if (argv.v || argv.version) {
+  console.log(`node-fancy-index ${pkg.version}`);
+}
 
 const configPath = argv.c || argv.config || 'node-fancy-index.config.js';
 
