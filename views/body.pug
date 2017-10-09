@@ -1,0 +1,30 @@
+h1 #{path}
+table#list(cellpadding='0.1em', cellspacing='0')
+  colgroup
+    col(width='55%')
+    col(width='20%')
+    col(width='25%')
+  thead
+    tr
+      th
+        a(href='?C=N&O=' + (sortOptions.N || 'D')) File Name
+        a(href='?C=N&O=' + (sortOptions.N || 'D')) #{sortOptions.N ? (sortOptions.N === 'A' ? '↑' : '↓') : '' }
+      th
+        a(href='?C=S&O=' + (sortOptions.S || 'D')) File Size
+        a(href='?C=S&O=' + (sortOptions.S || 'D')) #{sortOptions.S ? (sortOptions.S === 'A' ? '↑' : '↓') : '' }
+      th
+        a(href='?C=M&O=' + (sortOptions.M || 'D')) Date
+        a(href='?C=M&O=' + (sortOptions.M || 'D')) #{sortOptions.M ? (sortOptions.M === 'A' ? '↑' : '↓') : '' }
+  tbody
+    if !isRoot
+      tr
+        td
+          a(href='../?C=N&O=D') Parent directory/
+        td -
+        td -
+    each file in filelist
+      tr
+        td
+          a(href=file.path, title=file.name) #{file.isDirectory ? file.display_name + '/' : file.display_name}
+        td #{file.isDirectory ? '-' : file.display_size}
+        td #{file.display_mtime}

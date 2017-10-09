@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 const fs = require('fs');
 const path = require('path');
-const pug = require('pug');
 
 const { FANCY_INDEX_SORT } = require('../lib/common');
 
@@ -9,11 +8,8 @@ const {
   prettyFileSize,
   dateFormat,
   buildSortOptions,
+  composeIndexHtml,
 } = require('../lib/utils');
-
-
-const defaultTemplatePath = path.join(__dirname, '../views/default.pug');
-const compileIndex = pug.compileFile(defaultTemplatePath);
 
 const updateFileList = (filelist, options) => {
   const {
@@ -115,7 +111,6 @@ const serveIndex = (options, ctx, next) => {
     });
   });
 
-
   const {
     exact_size,
     name_length,
@@ -146,9 +141,8 @@ const serveIndex = (options, ctx, next) => {
     isRoot: (pth === '/'),
     path: decodeURI(pth),
   };
-  const content = compileIndex(renderData);
+  const content = composeIndexHtml(configs, renderData);
   ctx.body = content;
 };
-
 
 module.exports = serveIndex;

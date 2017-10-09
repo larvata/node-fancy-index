@@ -4,8 +4,6 @@ const path = require('path');
 const serveIndex = require('./serveIndex');
 const serveFile = require('./serveFile');
 
-const { buildConfigs } = require('../lib/utils');
-
 const createServeIndexMiddleware = (basePath, configs) => {
   return (ctx, next) => {
     const { path: pth, query } = ctx;
@@ -17,19 +15,12 @@ const createServeIndexMiddleware = (basePath, configs) => {
       return next();
     }
 
-    const mergedConfigs = buildConfigs(configs);
     const options = {
       basePath,
       fullpath,
       query,
-      configs: mergedConfigs,
+      configs,
     };
-
-    // todo code for ensure fullpath is under the basePath
-    // ...
-
-    // console.log('fullpath', fullpath);
-    // console.log('basePath', basePath);
 
     // determine is file or directory
     const stat = fs.statSync(fullpath);

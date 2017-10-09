@@ -1,4 +1,12 @@
 module.exports = {
+  // server bind address
+  // default: '127.0.0.1'
+  bind: '127.0.0.1',
+
+  // server listen port
+  // default: 8080
+  port: 8080,
+
   // values: [name | size | date | name_desc | size_desc | date_desc]
   // default: name
   default_sort: 'name_desc',
@@ -14,11 +22,10 @@ module.exports = {
   exact_size: false,
 
   // default: 50
-  name_length: 48,
+  name_length: 255,
 
-  // do not implement
-  // footer: '',
-  // header: '',
+  // header: '/fancyindex/header.html',
+  // footer: '/fancyindex/footer.html',
 
   // values: [true | false]
   // default: true
