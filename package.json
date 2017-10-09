@@ -1,6 +1,6 @@
 {
   "name": "node-fancy-index",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "index.js",
   "bin": {
     "fancy-index": "index.js"
@@ -8,7 +8,8 @@
   "files": [
     "views/",
     "middlewares/",
-    "lib/"
+    "lib/",
+    "configs.default.js"
   ],
   "license": "MIT",
   "dependencies": {
