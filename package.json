@@ -1,12 +1,14 @@
 {
   "name": "node-fancy-index",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "bin": {
     "fancy-index": "index.js"
   },
   "files": [
-    "views/"
+    "views/",
+    "middlewares/",
+    "lib/"
   ],
   "license": "MIT",
   "dependencies": {
