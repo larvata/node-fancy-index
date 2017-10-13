@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { argv } = require('yargs');
-const Koa = require('koa');
+const express = require('express');
 
 const pkg = require('./package');
 console.log(`node-fancy-index ${pkg.version}`);
@@ -35,10 +35,10 @@ const configs = Object.assign({}, BASE_CONFIGURATIONS, userConfigs);
 configs.bind = configs.bind || argv.b || argv.bind;
 configs.port = configs.port || argv.p || argv.port;
 
-const basePath = argv.r || argv.root || '.';
+// const basePath = argv.r || argv.root || '.';
 
-const app = new Koa();
-app.use(createServeIndexMiddleware(basePath, configs));
+const app = express();
+app.use(createServeIndexMiddleware(process.cwd(), configs));
 app.listen(configs.port, configs.bind);
 
 console.log(`Configuration loaded: ${configFullPath}`);

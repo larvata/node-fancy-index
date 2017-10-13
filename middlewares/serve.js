@@ -5,8 +5,8 @@ const serveIndex = require('./serveIndex');
 const serveFile = require('./serveFile');
 
 const createServeIndexMiddleware = (basePath, configs) => {
-  return (ctx, next) => {
-    const { path: pth, query } = ctx;
+  return (req, res, next) => {
+    const { path: pth, query } = req;
 
     const fullpath = path.join(basePath, decodeURIComponent(pth));
 
@@ -25,9 +25,9 @@ const createServeIndexMiddleware = (basePath, configs) => {
     // determine is file or directory
     const stat = fs.statSync(fullpath);
     if (stat.isDirectory()) {
-      return serveIndex(options, ctx, next);
+      return serveIndex(options, req, res, next);
     } else if (stat.isFile()) {
-      return serveFile(options, ctx, next);
+      return serveFile(options, req, res, next);
     }
   };
 };

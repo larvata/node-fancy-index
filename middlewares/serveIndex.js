@@ -75,8 +75,8 @@ const sortFileList = (filelist, options) => {
   return sorted;
 };
 
-const serveIndex = (options, ctx, next) => {
-  const { path: pth, query } = ctx;
+const serveIndex = (options, req, res, next) => {
+  const { path: pth, query } = req;
   const { fullpath, configs } = options;
 
   const dirs = fs.readdirSync(fullpath);
@@ -142,7 +142,7 @@ const serveIndex = (options, ctx, next) => {
     path: decodeURI(pth),
   };
   const content = composeIndexHtml(configs, renderData);
-  ctx.body = content;
+  res.send(content);
 };
 
 module.exports = serveIndex;
