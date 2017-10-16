@@ -2,6 +2,8 @@
 
 An nginx fancy index like static file server wrote in nodejs.
 
+[![npm version](https://badge.fury.io/js/node-fancy-index.svg)](https://badge.fury.io/js/node-fancy-index)
+
 ## Usage
 
 ```
