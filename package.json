@@ -1,6 +1,6 @@
 {
-  "name": "fancy-index",
-  "version": "0.2.2",
+  "name": "node-fancy-index",
+  "version": "0.2.3",
   "main": "index.js",
   "bin": {
     "fancy-index": "index.js"
