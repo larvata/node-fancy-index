@@ -22,7 +22,7 @@ if (argv.v || argv.version) {
   process.exit();
 }
 
-const configPath = argv.c || argv.config || 'node-fancy-index.config.js';
+const configPath = argv.c || argv.config || 'fancy-index.config.js';
 
 const configFullPath = path.join(process.cwd(), configPath);
 let userConfigs = null;
