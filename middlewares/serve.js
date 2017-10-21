@@ -9,6 +9,7 @@ const createServeIndexMiddleware = (basePath, configs) => {
     const { path: pth, query } = req;
 
     const fullpath = path.join(basePath, decodeURIComponent(pth));
+    const filename = path.basename(fullpath);
 
     const exists = fs.existsSync(fullpath);
     if (!exists) {
@@ -18,6 +19,7 @@ const createServeIndexMiddleware = (basePath, configs) => {
     const options = {
       basePath,
       fullpath,
+      filename,
       query,
       configs,
     };

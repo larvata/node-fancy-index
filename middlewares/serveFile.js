@@ -1,6 +1,6 @@
 const serveFile = async (options, req, res, next) => {
-  const { fullpath } = options;
-  res.download(fullpath);
+  const { fullpath, filename } = options;
+  res.download(fullpath, encodeURIComponent(filename));
 };
 
 module.exports = serveFile;
