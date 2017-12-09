@@ -6,18 +6,19 @@ const { argv } = require('yargs');
 const express = require('express');
 
 const pkg = require('./package');
-console.log(`node-fancy-index ${pkg.version}`);
+
 
 const createServeIndexMiddleware = require('./middlewares/serve');
 const { BASE_CONFIGURATIONS, BASE_CONFIGURATIONS_PATH } = require('./lib/common');
 const { loadFileContent } = require('./lib/utils');
 
-if (argv.defaultConfig) {
+if (argv['default-config']) {
   const baseConfigsContent = loadFileContent(BASE_CONFIGURATIONS_PATH);
   console.log(baseConfigsContent);
   process.exit();
 }
 
+console.log(`node-fancy-index ${pkg.version}`);
 if (argv.v || argv.version) {
   process.exit();
 }

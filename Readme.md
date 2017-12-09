@@ -7,13 +7,13 @@ An nginx fancy index like static file server wrote in nodejs.
 ## Usage
 
 ```
-npm install -g fancy-index
+npm install -g node-fancy-index
 ```
 
 ```
 # cd to the folder you want to expose
 # export the configuraltion
-> fancy-index --defaultConfig > fancy-index.config.js
+> fancy-index --default-config > fancy-index.config.js
 
 # edit the config file
 > nano fancy-index.config.js
