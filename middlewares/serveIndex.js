@@ -92,26 +92,31 @@ const serveIndex = (options, req, res, next) => {
       });
     }).map((d) => {
       const filePath = path.join(fullpath, d);
-      const stats = fs.lstatSync(filePath);
 
-      const { size, mtime } = stats;
-      const dmtime = new Date(mtime);
-      const isDirectory = stats.isDirectory();
-      const isFile = stats.isFile();
+      try {
+        const stats = fs.statSync(filePath);
+        const { size, mtime } = stats;
+        const dmtime = new Date(mtime);
+        const isDirectory = stats.isDirectory();
+        const isFile = stats.isFile();
 
-      const result = {
-        name: d,
-        path: path.join(pth, encodeURIComponent(d)),
-        // displayName: d,
-        size,
-        // displaySize: size,
-        mtime: dmtime,
-        // dmtime,
-        isDirectory,
-        isFile,
-      };
-      return result;
-    });
+        const result = {
+          name: d,
+          path: path.join(pth, encodeURIComponent(d)),
+          // displayName: d,
+          size,
+          // displaySize: size,
+          mtime: dmtime,
+          // dmtime,
+          isDirectory,
+          isFile,
+        };
+        return result;
+      }
+      catch (e) {
+        return null;
+      }
+    }).filter(s => s);
 
   const {
     exact_size,
