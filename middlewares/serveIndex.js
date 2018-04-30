@@ -82,34 +82,36 @@ const serveIndex = (options, req, res, next) => {
   const dirs = fs.readdirSync(fullpath);
 
   // build filelist
-  const filelist = dirs.map((d) => {
-    const filePath = path.join(fullpath, d);
-    const stats = fs.statSync(filePath);
-    const { size, mtime } = stats;
-    const dmtime = new Date(mtime);
-    const isDirectory = stats.isDirectory();
-    const isFile = stats.isFile();
+  const filelist = dirs
+    .filter(fs.existsSync)
+    .filter((f) => {
+      const { ignore } = configs;
+      const ignoreRules = [].concat(ignore);
 
-    const result = {
-      name: d,
-      path: path.join(pth, encodeURIComponent(d)),
-      // displayName: d,
-      size,
-      // displaySize: size,
-      mtime: dmtime,
-      // dmtime,
-      isDirectory,
-      isFile,
-    };
-    return result;
-  }).filter((f) => {
-    const { ignore } = configs;
-    const ignoreRules = [].concat(ignore);
+      return !ignoreRules.some((ir) => {
+        return ir.test(f);
+      });
+    }).map((d) => {
+      const filePath = path.join(fullpath, d);
+      const stats = fs.statSync(filePath);
+      const { size, mtime } = stats;
+      const dmtime = new Date(mtime);
+      const isDirectory = stats.isDirectory();
+      const isFile = stats.isFile();
 
-    return !ignoreRules.some((ir) => {
-      return ir.test(f.name);
+      const result = {
+        name: d,
+        path: path.join(pth, encodeURIComponent(d)),
+        // displayName: d,
+        size,
+        // displaySize: size,
+        mtime: dmtime,
+        // dmtime,
+        isDirectory,
+        isFile,
+      };
+      return result;
     });
-  });
 
   const {
     exact_size,
