@@ -83,7 +83,6 @@ const serveIndex = (options, req, res, next) => {
 
   // build filelist
   const filelist = dirs
-    .filter(fs.existsSync)
     .filter((f) => {
       const { ignore } = configs;
       const ignoreRules = [].concat(ignore);
@@ -93,7 +92,8 @@ const serveIndex = (options, req, res, next) => {
       });
     }).map((d) => {
       const filePath = path.join(fullpath, d);
-      const stats = fs.statSync(filePath);
+      const stats = fs.lstatSync(filePath);
+
       const { size, mtime } = stats;
       const dmtime = new Date(mtime);
       const isDirectory = stats.isDirectory();
